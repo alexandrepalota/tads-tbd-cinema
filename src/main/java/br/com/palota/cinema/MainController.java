@@ -23,29 +23,29 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML
-    private MenuItem menuItemCadastrarSala;
+    private MenuItem menuItemCadastroSala;
 
     @FXML
-    private MenuItem menuItemCadastrarFilme;
+    private MenuItem menuItemCadastroFilme;
 
     @FXML
-    private MenuItem menuItemCadastrarSessao;
+    private MenuItem menuItemCadastroSessao;
 
     @FXML
     private MenuItem menuItemAjusaSobre;
 
     @FXML
-    protected void onMenuItemCadastrarSalaAction() {
+    protected void onMenuItemCadastroSalaAction() {
+        loadView("sessao-lista-view.fxml");
+    }
+
+    @FXML
+    protected void onMenuItemCadastroFilmeAction() {
 
     }
 
     @FXML
-    protected void onMenuItemCadastrarFilmeAction() {
-
-    }
-
-    @FXML
-    protected void onMenuItemCadastrarSessaoAction() {
+    protected void onMenuItemCadastroSessaoAction() {
 
     }
 

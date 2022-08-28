@@ -14,9 +14,9 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Cadastros">
                   <items>
-                    <MenuItem fx:id="menuItemCadastrarSala" mnemonicParsing="false" onAction="#onMenuItemCadastrarSalaAction" text="Salas" />
-                        <MenuItem fx:id="menuItemCadastrarFilme" mnemonicParsing="false" onAction="#onMenuItemCadastrarFilmeAction" text="Filmes" />
-                        <MenuItem fx:id="menuItemCadastrarSessao" mnemonicParsing="false" onAction="#onMenuItemCadastrarSessaoAction" text="Sessões" />
+                    <MenuItem fx:id="menuItemCadastroSala" mnemonicParsing="false" onAction="#onMenuItemCadastroSalaAction" text="Salas" />
+                        <MenuItem fx:id="menuItemCadastroFilme" mnemonicParsing="false" onAction="#onMenuItemCadastroFilmeAction" text="Filmes" />
+                        <MenuItem fx:id="menuItemCadastroSessao" mnemonicParsing="false" onAction="#onMenuItemCadastroSessaoAction" text="Sessões" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Consultas">
