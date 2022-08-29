@@ -1,8 +1,6 @@
 
 c
 3src/main/java/br/com/palota/cinema/util/Alerts.java,f/b/fb2ad96407b8e3122b77b89745b885f8bd2d2205
-g
-7src/main/java/br/com/palota/cinema/MainApplication.java,1/4/141f4ca178b65a0a1bb80311763ea9658c9ad465
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 h
@@ -27,11 +25,5 @@ f
 6src/main/java/br/com/palota/cinema/MainController.java,d/4/d428b6f2ec233ca1f9e306fc6dc330f4d8ef2f67
 k
 ;src/main/java/br/com/palota/cinema/service/SalaService.java,9/7/9746f28b605c978808d0f45183af3d2579dd2ff8
-b
-2src/main/java/br/com/palota/cinema/util/Utils.java,3/6/36b8c692744b097dbca0ee71398e1efece3edbed
 o
 ?src/main/java/br/com/palota/cinema/util/DataChangeListener.java,4/d/4d782ab0c8bdd226dc203931e9ab07251f60c2c5
-j
-:src/main/java/br/com/palota/cinema/SalaFormController.java,5/b/5b354a02b097bceb6a3c895d3113ac88643d1a5e
-j
-:src/main/java/br/com/palota/cinema/SalaListController.java,8/b/8bca50cb6e714297d6a0e85c39ff5c088d960700

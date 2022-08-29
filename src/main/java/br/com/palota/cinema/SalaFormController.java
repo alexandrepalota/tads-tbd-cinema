@@ -1,5 +1,6 @@
 package br.com.palota.cinema;
 
+import br.com.palota.cinema.exception.ValidationException;
 import br.com.palota.cinema.model.Sala;
 import br.com.palota.cinema.service.SalaService;
 import br.com.palota.cinema.util.Alerts;
@@ -17,7 +18,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class SalaFormController implements Initializable {
 
@@ -71,6 +74,8 @@ public class SalaFormController implements Initializable {
             service.salvar(this.sala);
             notifyDataChangeListeners();
             Utils.currentStage(event).close();
+        } catch (ValidationException e) {
+            setErrorMessages(e.getErrors());
         } catch (Exception e) {
             Alerts.showAlerts("Erro ao salvar", null, e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -103,9 +108,21 @@ public class SalaFormController implements Initializable {
 
     private Sala getFormData() {
         Sala sala = new Sala();
+        ValidationException exception = new ValidationException("Erros de validação");
         sala.setId(Utils.tryParseLong(txtId.getText()));
+
+        if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+            exception.addError("nome", "Nome não pode ser vazio");
+        }
         sala.setNome(txtNome.getText());
+
+        if (txtCapacidade.getText() == null || txtCapacidade.getText().trim().equals("") || Utils.tryParseInt(txtCapacidade.getText()) <= 0) {
+            exception.addError("capacidade", "Capacidade deve ser maior que zero");
+        }
         sala.setCapacidade(Utils.tryParseInt(txtCapacidade.getText()));
+
+        if (exception.getErrors().size() > 0) throw exception;
+
         return sala;
     }
 
@@ -113,5 +130,11 @@ public class SalaFormController implements Initializable {
         for (DataChangeListener l : dataChangeListeners) {
             l.onDataChanged();
         }
+    }
+
+    private void setErrorMessages(Map<String, String> errors) {
+        Set<String> fields = errors.keySet();
+        if (fields.contains("nome")) lblNomeErro.setText(errors.get("nome"));
+        if (fields.contains("capacidade")) lblCapacidadeErro.setText(errors.get("capacidade"));
     }
 }
