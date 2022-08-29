@@ -21,8 +21,7 @@ public class MainApplication extends Application {
         scrollPane.setFitToWidth(true);
         mainScene = new Scene(scrollPane);
         stage.setTitle("Cine JPA");
-        stage.setMinHeight(800);
-        stage.setMinWidth(1200);
+        stage.centerOnScreen();
         stage.setScene(mainScene);
         stage.show();
     }

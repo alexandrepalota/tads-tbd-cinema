@@ -1,6 +1,5 @@
 package br.com.palota.cinema.service;
 
-import br.com.palota.cinema.dao.DAO;
 import br.com.palota.cinema.dao.SalaDao;
 import br.com.palota.cinema.model.Sala;
 
@@ -15,16 +14,16 @@ public class SalaService {
     }
 
     public List<Sala> buscarTodos() {
-        return dao.obterTodos();
+        return dao.listar();
     }
 
     public Sala buscarPorId(Long id) {
-        return dao.buscarPorId(id);
+        return dao.buscar(id);
     }
 
     public void salvar(Sala sala) {
         if (sala.getId() == null) {
-            dao.incluirAtomico(sala);
+            dao.inserir(sala);
         } else {
             dao.atualizar(sala);
         }

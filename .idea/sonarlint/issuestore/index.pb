@@ -5,8 +5,6 @@ c
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 h
 8src/main/java/br/com/palota/cinema/util/Constraints.java,e/b/eb5c69c75f817d7b8ddd94463b32a1aea23bf927
-b
-2src/main/java/br/com/palota/cinema/model/Sala.java,7/a/7aa58a1119dd1efce269f9318bd20a0f4fe9f7b5
 c
 3src/main/java/br/com/palota/cinema/model/Filme.java,7/5/75e977d27415be87ce5395c93f6daf387d6d428b
 f
@@ -19,11 +17,5 @@ s
 Csrc/main/java/br/com/palota/cinema/exception/DatabaseException.java,d/4/d4e4bed14d5881d9a0637dd6003274a8e3e7cd0a
 _
 /src/main/java/br/com/palota/cinema/dao/DAO.java,0/1/01b12a39673e5f4862e91d9f7e7bfa4d78bbccaa
-c
-3src/main/java/br/com/palota/cinema/dao/SalaDao.java,7/7/77dee15f7760c55457ccde8b18948da0b43eaed5
-f
-6src/main/java/br/com/palota/cinema/MainController.java,d/4/d428b6f2ec233ca1f9e306fc6dc330f4d8ef2f67
-k
-;src/main/java/br/com/palota/cinema/service/SalaService.java,9/7/9746f28b605c978808d0f45183af3d2579dd2ff8
 o
 ?src/main/java/br/com/palota/cinema/util/DataChangeListener.java,4/d/4d782ab0c8bdd226dc203931e9ab07251f60c2c5
