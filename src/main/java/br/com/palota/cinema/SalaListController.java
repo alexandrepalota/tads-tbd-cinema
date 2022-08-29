@@ -1,24 +1,35 @@
 package br.com.palota.cinema;
 
-import br.com.palota.cinema.model.Sala;
 import br.com.palota.cinema.dao.SalaDao;
+import br.com.palota.cinema.model.Sala;
+import br.com.palota.cinema.service.SalaService;
+import br.com.palota.cinema.util.Alerts;
+import br.com.palota.cinema.util.DataChangeListener;
+import br.com.palota.cinema.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SalaListController implements Initializable {
+public class SalaListController implements Initializable, DataChangeListener {
 
-    private SalaDao salaDao;
+    private SalaService salaService;
 
     @FXML
     private TableView<Sala> tableViewSala;
@@ -38,8 +49,10 @@ public class SalaListController implements Initializable {
     private ObservableList<Sala> obsList;
 
     @FXML
-    protected void onButtonNovoAction() {
-        System.out.println("Foi clicado");
+    protected void onButtonNovoAction(ActionEvent event) {
+        Stage parentStage = Utils.currentStage(event);
+        Sala sala = new Sala();
+        createDialogForm(sala, "sala-formulario-view.fxml", parentStage);
     }
 
     @Override
@@ -47,8 +60,8 @@ public class SalaListController implements Initializable {
         initializeNodes();
     }
 
-    public void setSalaDao(SalaDao dao) {
-        this.salaDao = dao;
+    public void setSalaDao(SalaService service) {
+        this.salaService = service;
     }
 
     private void initializeNodes() {
@@ -62,11 +75,37 @@ public class SalaListController implements Initializable {
     }
 
     public void updateTableView() {
-        if (salaDao == null) {
-            throw new IllegalStateException("Dao nulo");
+        if (salaService == null) {
+            throw new IllegalStateException("Service nulo");
         }
-        List<Sala> lista = salaDao.findAll();
+        List<Sala> lista = salaService.buscarTodos();
         obsList = FXCollections.observableArrayList(lista);
         tableViewSala.setItems(obsList);
+    }
+
+    private void createDialogForm(Sala sala, String absoluteName, Stage parentStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+            SalaFormController controller = loader.getController();
+            controller.setSala(sala);
+            controller.setService(new SalaService(new SalaDao()));
+            controller.subscribeDataChangeListener(this);
+            controller.updateFormData();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Insira os dados da Sala");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            Alerts.showAlerts("IOException", "Erro ao carregar a janela", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @Override
+    public void onDataChanged() {
+        updateTableView();
     }
 }

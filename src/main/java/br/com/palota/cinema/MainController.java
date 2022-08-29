@@ -1,6 +1,9 @@
 package br.com.palota.cinema;
 
+import br.com.palota.cinema.dao.DAO;
 import br.com.palota.cinema.dao.SalaDao;
+import br.com.palota.cinema.model.Sala;
+import br.com.palota.cinema.service.SalaService;
 import br.com.palota.cinema.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +37,7 @@ public class MainController implements Initializable {
     @FXML
     protected void onMenuItemCadastroSalaAction() {
         loadView("sala-lista-view.fxml", (SalaListController controller) -> {
-            controller.setSalaDao(new SalaDao());
+            controller.setSalaDao(new SalaService(new SalaDao()));
             controller.updateTableView();
         });
     }
