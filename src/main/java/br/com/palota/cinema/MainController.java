@@ -1,8 +1,8 @@
 package br.com.palota.cinema;
 
-import br.com.palota.cinema.dao.DAO;
+import br.com.palota.cinema.dao.FilmeDao;
 import br.com.palota.cinema.dao.SalaDao;
-import br.com.palota.cinema.model.Sala;
+import br.com.palota.cinema.service.FilmeService;
 import br.com.palota.cinema.service.SalaService;
 import br.com.palota.cinema.util.Alerts;
 import javafx.fxml.FXML;
@@ -44,7 +44,10 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onMenuItemCadastroFilmeAction() {
-
+        loadView("filme-lista-view.fxml", (FilmeListController controller) -> {
+            controller.setService(new FilmeService(new FilmeDao()));
+            controller.updateTableView();
+        });
     }
 
     @FXML

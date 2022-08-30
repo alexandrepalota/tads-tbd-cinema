@@ -1,7 +1,7 @@
 package br.com.palota.cinema.dao;
 
 import br.com.palota.cinema.exception.BusinessException;
-import br.com.palota.cinema.model.Sala;
+import br.com.palota.cinema.model.Filme;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,55 +9,56 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
-public class SalaDao {
+public class FilmeDao {
 
     private final String PERSISTENCE_UNIT = "cinemaPu";
 
-    public List<Sala> listar() {
+    public List<Filme> listar() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select s from Sala s order by s.id");
-        List<Sala> lista = query.getResultList();
+        Query query = em.createQuery("select f from Filme f order by f.id");
+        List<Filme> lista = query.getResultList();
         em.close();
         emf.close();
         return lista;
     }
 
-    public Sala buscar(Long id) {
+    public Filme buscar(Long id) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = emf.createEntityManager();
-        Sala sala = em.find(Sala.class, id);
+        Filme filme = em.find(Filme.class, id);
         em.close();
         emf.close();
-        return sala;
+        return filme;
     }
 
-    public void inserir(Sala sala) {
-        if (sala.getId() != null) {
-            this.atualizar(sala);
+    public void inserir(Filme filme) {
+        if (filme.getId() != null) {
+            this.atualizar(filme);
             return;
         }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(sala);
+        em.persist(filme);
         em.getTransaction().commit();
         em.close();
         emf.close();
     }
 
-    public void atualizar(Sala sala) {
-        if (sala.getId() == null) {
-            this.inserir(sala);
+    public void atualizar(Filme filme) {
+        if (filme.getId() == null) {
+            this.inserir(filme);
             return;
         }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Sala salaAntiga = em.find(Sala.class, sala.getId());
-        salaAntiga.setNome(sala.getNome());
-        salaAntiga.setCapacidade(sala.getCapacidade());
-        em.merge(sala);
+        Filme filmeAntigo = em.find(Filme.class, filme.getId());
+        filmeAntigo.setTitulo(filme.getTitulo());
+        filmeAntigo.setSinopse(filme.getSinopse());
+        filmeAntigo.setGenero(filme.getGenero());
+        em.merge(filme);
         em.getTransaction().commit();
         em.close();
         emf.close();
@@ -67,13 +68,13 @@ public class SalaDao {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Sala sala = em.find(Sala.class, id);
-        if (sala == null) {
+        Filme filme = em.find(Filme.class, id);
+        if (filme == null) {
             em.close();
             emf.close();
-            throw new BusinessException("Sala não encontrada");
+            throw new BusinessException("Filme não encontrado");
         }
-        em.remove(sala);
+        em.remove(filme);
         em.getTransaction().commit();
         em.close();
         emf.close();

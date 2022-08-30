@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.palota.cinema.SalaFormController">
    <children>
       <GridPane layoutX="43.0" layoutY="40.0" prefHeight="115.0" prefWidth="696.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">

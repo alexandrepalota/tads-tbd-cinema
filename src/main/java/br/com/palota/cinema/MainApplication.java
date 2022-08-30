@@ -2,7 +2,6 @@ package br.com.palota.cinema;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
@@ -22,6 +21,7 @@ public class MainApplication extends Application {
         mainScene = new Scene(scrollPane);
         stage.setTitle("Cine JPA");
         stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.setScene(mainScene);
         stage.show();
     }

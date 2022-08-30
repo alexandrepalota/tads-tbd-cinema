@@ -1,10 +1,6 @@
 
-c
-3src/main/java/br/com/palota/cinema/util/Alerts.java,f/b/fb2ad96407b8e3122b77b89745b885f8bd2d2205
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
-h
-8src/main/java/br/com/palota/cinema/util/Constraints.java,e/b/eb5c69c75f817d7b8ddd94463b32a1aea23bf927
 c
 3src/main/java/br/com/palota/cinema/model/Filme.java,7/5/75e977d27415be87ce5395c93f6daf387d6d428b
 f

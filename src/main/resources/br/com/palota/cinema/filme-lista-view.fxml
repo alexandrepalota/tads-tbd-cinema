@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.palota.cinema.SalaListController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.palota.cinema.FilmeListController">
    <children>
-      <Label text="Sessoes">
+      <Label text="Filmes">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -24,13 +24,14 @@
           <Button fx:id="buttonNovo" mnemonicParsing="false" onAction="#onButtonNovoAction" text="Novo" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewSala" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewFilme" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="tableColumnNome" prefWidth="375.0" text="Nome" />
-            <TableColumn fx:id="tableColumnCapacidade" prefWidth="119.0" text="Capacidade" />
-            <TableColumn fx:id="tableColumnEditar" prefWidth="75.0" />
-            <TableColumn fx:id="tableColumnRemover" prefWidth="75.0" />
+          <TableColumn fx:id="tableColumnTitulo" prefWidth="340.0" text="Titulo" />
+            <TableColumn fx:id="tableColumnGenero" prefWidth="185.0" text="Genero" />
+            <TableColumn fx:id="tableColumnSinopse" prefWidth="412.0" text="Sinopse" />
+            <TableColumn fx:id="tableColumnEditar" minWidth="5.0" prefWidth="91.0" />
+            <TableColumn fx:id="tableColumnRemover" prefWidth="90.0" />
         </columns>
       </TableView>
    </children>

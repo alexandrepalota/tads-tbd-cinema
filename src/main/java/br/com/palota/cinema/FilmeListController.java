@@ -1,8 +1,12 @@
 package br.com.palota.cinema;
 
-import br.com.palota.cinema.dao.SalaDao;
-import br.com.palota.cinema.model.Sala;
-import br.com.palota.cinema.service.SalaService;
+import br.com.palota.cinema.dao.FilmeDao;
+import br.com.palota.cinema.dao.FilmeDao;
+import br.com.palota.cinema.model.Filme;
+import br.com.palota.cinema.model.Filme;
+import br.com.palota.cinema.model.Filme;
+import br.com.palota.cinema.service.FilmeService;
+import br.com.palota.cinema.service.FilmeService;
 import br.com.palota.cinema.util.Alerts;
 import br.com.palota.cinema.util.DataChangeListener;
 import br.com.palota.cinema.util.Utils;
@@ -30,81 +34,80 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SalaListController implements Initializable, DataChangeListener {
+public class FilmeListController implements Initializable, DataChangeListener {
 
-    private SalaService salaService;
-
-    @FXML
-    private TableView<Sala> tableViewSala;
+    private FilmeService service;
 
     @FXML
-    private TableColumn<Sala, Long> tableColumnId;
+    private TableView<Filme> tableViewFilme;
 
     @FXML
-    private TableColumn<Sala, String> tableColumnNome;
+    private TableColumn<Filme, Long> tableColumnId;
 
     @FXML
-    private TableColumn<Sala, Integer> tableColumnCapacidade;
+    private TableColumn<Filme, String> tableColumnTitulo;
 
     @FXML
-    private TableColumn<Sala, Sala> tableColumnRemover;
+    private TableColumn<Filme, String> tableColumnGenero;
 
     @FXML
-    private TableColumn<Sala, Sala> tableColumnEditar;
+    private TableColumn<Filme, String> tableColumnSinopse;
+
+    @FXML
+    private TableColumn<Filme, Filme> tableColumnRemover;
+
+    @FXML
+    private TableColumn<Filme, Filme> tableColumnEditar;
 
     @FXML
     private Button buttonNovo;
 
-    private ObservableList<Sala> obsList;
+    private ObservableList<Filme> obsList;
+
+    public void setService(FilmeService service) {
+        this.service = service;
+    }
 
     @FXML
     protected void onButtonNovoAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        Sala sala = new Sala();
-        createDialogForm(sala, "sala-formulario-view.fxml", parentStage);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeNodes();
-    }
-
-    public void setSalaDao(SalaService service) {
-        this.salaService = service;
+        Filme filme = new Filme();
+        createDialogForm(filme, "filme-formulario-view.fxml", parentStage);
     }
 
     private void initializeNodes() {
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnCapacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
+        tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tableColumnSinopse.setCellValueFactory(new PropertyValueFactory<>("sinopse"));
+        tableColumnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
 
         // Fazendo o TableView acompanhar a altura da janela
         Stage stage = (Stage) MainApplication.getMainScene().getWindow();
-        tableViewSala.prefHeightProperty().bind(stage.heightProperty());
+        tableViewFilme.prefHeightProperty().bind(stage.heightProperty());
     }
 
     public void updateTableView() {
-        if (salaService == null) {
+        if (service == null) {
             throw new IllegalStateException("Service nulo");
         }
-        List<Sala> lista = salaService.buscarTodos();
+        List<Filme> lista = service.buscarTodos();
         obsList = FXCollections.observableArrayList(lista);
-        tableViewSala.setItems(obsList);
+        tableViewFilme.setItems(obsList);
         initEditButtons();
         initRemoveButtons();
     }
 
-    private void createDialogForm(Sala sala, String absoluteName, Stage parentStage) {
+    private void createDialogForm(Filme filme, String absoluteName, Stage parentStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
-            SalaFormController controller = loader.getController();
-            controller.setSala(sala);
-            controller.setService(new SalaService(new SalaDao()));
+            FilmeFormController controller = loader.getController();
+            controller.setFilme(filme);
+            controller.setService(new FilmeService(new FilmeDao()));
             controller.subscribeDataChangeListener(this);
             controller.updateFormData();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Insira os dados da Sala");
+            dialogStage.setTitle("Insira os dados do Filme");
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(parentStage);
@@ -117,11 +120,11 @@ public class SalaListController implements Initializable, DataChangeListener {
 
     private void initEditButtons() {
         tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnEditar.setCellFactory(param -> new TableCell<Sala, Sala>() {
+        tableColumnEditar.setCellFactory(param -> new TableCell<Filme, Filme>() {
             private final Button button = new Button("Editar");
 
             @Override
-            protected void updateItem(Sala obj, boolean empty) {
+            protected void updateItem(Filme obj, boolean empty) {
                 super.updateItem(obj, empty);
                 if (obj == null) {
                     setGraphic(null);
@@ -129,7 +132,7 @@ public class SalaListController implements Initializable, DataChangeListener {
                 }
                 setGraphic(button);
                 button.setOnAction(event -> createDialogForm(
-                        obj, "sala-formulario-view.fxml", Utils.currentStage(event)
+                        obj, "filme-formulario-view.fxml", Utils.currentStage(event)
                 ));
             }
         });
@@ -137,10 +140,10 @@ public class SalaListController implements Initializable, DataChangeListener {
 
     private void initRemoveButtons() {
         tableColumnRemover.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnRemover.setCellFactory(param -> new TableCell<Sala, Sala>() {
+        tableColumnRemover.setCellFactory(param -> new TableCell<Filme, Filme>() {
             private final Button button = new Button("Excluir");
             @Override
-            protected void updateItem(Sala obj, boolean empty) {
+            protected void updateItem(Filme obj, boolean empty) {
                 super.updateItem(obj, empty);
                 if (obj == null) {
                     setGraphic(null);
@@ -152,17 +155,17 @@ public class SalaListController implements Initializable, DataChangeListener {
         });
     }
 
-    private void removeEntity(Sala sala) {
+    private void removeEntity(Filme filme) {
         var result = Alerts.showConfirmation("Confirmação", "Tem certeza que deseja exluir?");
         if (result.get() == ButtonType.OK) {
-            if (salaService == null) {
+            if (service == null) {
                 throw new IllegalStateException("Service nulo");
             }
             try {
-                salaService.excluir(sala.getId());
+                service.excluir(filme.getId());
                 updateTableView();
             } catch (Exception e) {
-                Alerts.showAlerts("Erro ao excluir", "Não foi possível excluir", "Verifique se não há sessões associadas a esta sala", Alert.AlertType.ERROR);
+                Alerts.showAlerts("Erro ao excluir", "Não foi possível excluir", "Verifique se não há sessões associadas a este filme", Alert.AlertType.ERROR);
             }
         }
     }
@@ -170,5 +173,10 @@ public class SalaListController implements Initializable, DataChangeListener {
     @Override
     public void onDataChanged() {
         updateTableView();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeNodes();
     }
 }
